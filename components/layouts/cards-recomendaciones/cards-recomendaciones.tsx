@@ -19,7 +19,7 @@ const CardsRecomendaciones = ({listaProyectos}: Props) => {
     };
     return (
       <>
-        <LandingTitles smallTitle='Explora nuestros proyectos' title={"Proyectos recientes"} color={"black"} />
+        <LandingTitles smallTitle='Explora nuestros proyectos' title={"Proyectos recomendados"} color={"black"} />
         <Grid container spacing={4} justifyContent="space-around" style={{ margin: '0 1px' }} >
           {proyectosLimitados.map((card, index) => (
             <Grid item key={index} xs={12} sm={6} md={4} lg={3}>

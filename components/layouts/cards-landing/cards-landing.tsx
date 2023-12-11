@@ -19,7 +19,7 @@ const CardsLanding = ({listaProyectos}: Props) => {
     };
     return (
         <>
-          <LandingTitles smallTitle='Explora nuestros proyectos' title={"Proyectos recientes"} color={"black"} />
+          <LandingTitles smallTitle='Explora nuestros proyectos' title={"Proyectos destacados"} color={"black"} />
           <Grid container gap={4}>
             {proyectosLimitados.map((card, index) => (
               <MediaCard key={index} proyecto={card} widthParam={false} />

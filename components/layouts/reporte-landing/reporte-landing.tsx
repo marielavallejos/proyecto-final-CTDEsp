@@ -23,7 +23,7 @@ const ReporteLanging = ({ total, proyectos, personas, causas }: Props) => {
                     <Grid item lg={2} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                         <CheckCircleIcon sx={{ fontSize: "95px" }} />
                         <Typography variant='h3' fontWeight={"bold"} align='center'>
-                            {proyectos}
+                            120
                         </Typography>
                         <Typography variant='body1' fontWeight={"bold"} align='center'>
                             Proyectos completados
@@ -32,7 +32,7 @@ const ReporteLanging = ({ total, proyectos, personas, causas }: Props) => {
                     <Grid item lg={2} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                         <PaidIcon sx={{ fontSize: "95px" }} />
                         <Typography variant='h3' fontWeight={"bold"} align='center'>
-                            {total}
+                            1.000.000
                         </Typography>
                         <Typography variant='body1' fontWeight={"bold"} align='center'>
                             Recaudado hasta la fecha
@@ -50,7 +50,7 @@ const ReporteLanging = ({ total, proyectos, personas, causas }: Props) => {
                     <Grid item lg={2} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                         <PublicIcon sx={{ fontSize: "95px" }} />
                         <Typography variant='h3' fontWeight={"bold"} align='center'>
-                            {proyectos}
+                            250
                         </Typography>
                         <Typography variant='body1' fontWeight={"bold"} align='center'>
                             Causas generadas

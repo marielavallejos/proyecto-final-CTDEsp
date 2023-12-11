@@ -59,7 +59,9 @@ const DonacionesForm = () => {
             if (!response.error) {
                 setError(`Su donacion se realizo con exito`);
                 setOpenSnackbar(true);
-                router.push("/mis-donaciones-proyectos")
+                setTimeout(() => {
+                    router.push("/mis-donaciones-proyectos");
+                }, 4000);
             } else {
 
                 setError(`${response.error}- - -${response.message}`);

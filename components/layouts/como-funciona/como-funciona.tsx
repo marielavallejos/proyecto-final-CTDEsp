@@ -42,7 +42,7 @@ const ComoFunciona = () => {
                         height={250}
                         alt={`Imagen`} />
                     <Typography variant='body1' align='center'>
-                        Compartimos en las redes para que  llegue a las personasque te ayudarán
+                        Compartimos en las redes para que  llegue a las personas que te ayudarán
                     </Typography>
                 </Grid>
                 <Grid item lg={1} display={"flex"} alignItems={"center"}>
@@ -54,7 +54,7 @@ const ComoFunciona = () => {
                         height={250}
                         alt={`Imagen`} />
                     <Typography variant='body1' align='center'>
-                        Llegás al objetivo y WOW!Celebramos el éxito
+                        Llegás al objetivo y WOW! Celebramos el éxito
                     </Typography>
                 </Grid>
             </Grid>

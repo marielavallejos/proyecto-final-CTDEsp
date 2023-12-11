@@ -7,7 +7,7 @@ const SimpleCall = () => {
         <Typography variant='h4' fontWeight={"bolder"}>
             Apoya nuestro proyecto y haz una diferencia hoy
         </Typography>
-        <Button variant='contained' sx={{fontWeight: "lighter", backgroundColor: "black", borderRadius:"0px", padding:"20px"  }}>Haz tu aporte</Button>
+        <Button href="/proyectos-generales" variant='contained' sx={{fontWeight: "lighter", backgroundColor: "black", borderRadius:"0px", padding:"20px"  }}>Haz tu aporte</Button>
     </Grid  >
   )
 }
