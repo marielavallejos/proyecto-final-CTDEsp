@@ -1,6 +1,6 @@
 // export const API_URL = "http://localhost:8080"
 export const API_URL = "http://44.202.51.198:8080"
-export const URL_DOMAIN = "https://wow-funding-joseent.vercel.app/login"
+export const URL_DOMAIN = "https://proyecto-final-ctd-2u7vgy9cf-marielanv.vercel.app/login"
 // export const URL_DOMAIN = "http://localhost:3080"
 
 export const fetchApsi = async (endpoint: string, urlParams?: string) => {
