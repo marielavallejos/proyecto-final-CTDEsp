@@ -11,7 +11,7 @@ const LayoutGeneral: FC<PropsWithChildren> = ({ children }: PropsWithChildren) =
     const { user } = useAuth();
     return (<>
         <Stack direction={"column"} height={'100%'} >
-            <GeneralHeader user={user} />
+            <GeneralHeader/>
             <Box display={'flex'} flexGrow={1} justifyContent={'center'} >
                 {children}
             </Box>
