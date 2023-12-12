@@ -23,7 +23,7 @@ const ReporteLanging = ({ total, proyectos, personas, causas }: Props) => {
                     <Grid item lg={2} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                         <CheckCircleIcon sx={{ fontSize: "95px" }} />
                         <Typography variant='h3' fontWeight={"bold"} align='center'>
-                            120
+                            {proyectos  ? proyectos :120}
                         </Typography>
                         <Typography variant='body1' fontWeight={"bold"} align='center'>
                             Proyectos completados

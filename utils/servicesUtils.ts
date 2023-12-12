@@ -19,17 +19,17 @@ export const fetchApi = async (endpoint: string, data?: { token?: string | null;
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
             'Access-Control-Allow-Methods': 'POST, PUT, DELETE, GET, OPTIONS',
-'Access-Control-Request-Method': '*',
+            'Access-Control-Request-Method': '*',
             'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
             Authorization: data?.token ? `Bearer ${data.token}` : '',
-        ...(data?.headers || {}),
+            ...(data?.headers || {}),
 
         },
         method: data?.method || "GET",
         body: data?.body ? JSON.stringify(data.body) : undefined,
     });
     if (response.status === 204) {
-        return response.status; 
+        return response.status;
     }
     return await response.json();
 }

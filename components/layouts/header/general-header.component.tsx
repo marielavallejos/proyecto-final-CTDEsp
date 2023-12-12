@@ -21,13 +21,14 @@ import Cookies from "js-cookie";
 import router from "next/router";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Link from "next/link";
 
 type Props = {
   variant?: "simple" | "general";
 };
 
 const Header: FC<Props> = ({ variant }: Props) => {
-  const { user } = useAuth();
+  const { user, setuserState } = useAuth();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -39,6 +40,13 @@ const Header: FC<Props> = ({ variant }: Props) => {
   const handleDrawerClose = () => {
     setDrawerOpen(false);
   };
+
+  const handleCerrarSesion = () => {
+    Cookies.remove("access-confirmacion");
+    Cookies.remove("_vercel_jwt")
+    setuserState("logout")
+    router.push("/");
+  }
 
   return (
     <Container maxWidth="xl" sx={{ height: "100px", maxWidth: "100%" }}>
@@ -78,12 +86,13 @@ const Header: FC<Props> = ({ variant }: Props) => {
                 <>
                   <Box sx={{ display: "flex", alignItems: "center" }}>
                     <NextLink href="/actualizacion-perfil">
-                    <Image
-                      src="/perfil.png"
-                      width={30}
-                      height={30}
-                      alt="Perfil"
-                    />
+                      <Image
+                        src={user.profileUrl}
+                        width={30}
+                        height={30}
+                        alt="Perfil"
+                        style={{borderRadius:"50%"}}
+                      />
                     </NextLink>
                     <Typography
                       variant="body2"
@@ -117,7 +126,7 @@ const Header: FC<Props> = ({ variant }: Props) => {
               open={isDrawerOpen}
               onClose={handleDrawerClose}
               sx={{
-                width: 206, 
+                width: 206,
               }}
             >
               <List>
@@ -233,11 +242,9 @@ const Header: FC<Props> = ({ variant }: Props) => {
                             fontSize: 14,
                             fontWeight: 400,
                           }}
-                          onClick={() => {
-                            Cookies.remove("access-confirmacion");
-                            Cookies.remove("_vercel_jwt")
-                            router.push("/");
-                          }}
+                          onClick={
+                            handleCerrarSesion
+                          }
                         >
                           Cerrar Sesión
                         </MUILink>
@@ -283,11 +290,9 @@ const Header: FC<Props> = ({ variant }: Props) => {
                             fontSize: 14,
                             fontWeight: 400,
                           }}
-                          onClick={() => {
-                            Cookies.remove("access-confirmacion");
-                            Cookies.remove("_vercel_jwt")
-                            router.push("/");
-                          }}
+                          onClick={
+                            handleCerrarSesion
+                          }
                         >
                           Cerrar Sesión
                         </MUILink>
@@ -406,12 +411,13 @@ const Header: FC<Props> = ({ variant }: Props) => {
                   </NextLink>
                 )}
                 <NextLink href="/actualizacion-perfil" passHref>
-                  <Image
-                    src="/perfil.png"
-                    width={45}
-                    height={45}
-                    alt="Perfil"
-                  />
+                    <Image
+                      src={user.profileUrl}
+                      width={45}
+                      height={45}
+                      alt="Perfil"
+                      style={{borderRadius:"50%"}}
+                    />
                 </NextLink>
                 <NextLink href="/actualizacion-perfil" passHref>
                   <MUILink
@@ -435,10 +441,9 @@ const Header: FC<Props> = ({ variant }: Props) => {
                       fontWeight: 400,
                       marginLeft: 3,
                     }}
-                    onClick={() => {
-                      Cookies.remove("access-confirmacion");
-                      router.push("/");
-                    }}
+                    onClick={
+                      handleCerrarSesion
+                    }
                   >
                     Cerrar Sesión
                   </MUILink>

@@ -55,6 +55,7 @@ export const postActualizacionApi = async (data: Actualizacion) => {
 }
 
 export const postActualizacion = async (data: Actualizacion, token: string, id: number) => {
+  console.log('data', data)
   const response = await fetchApi(`auth/updateUser/${id}`, {
     headers: {
       Accept: "application/json",
@@ -72,6 +73,7 @@ export const postActualizacion = async (data: Actualizacion, token: string, id: 
 
 
 export const postRegistroApi = async (data: IUserRegister): Promise<any> => {
+  
   const transformData =
   {
     ...data,

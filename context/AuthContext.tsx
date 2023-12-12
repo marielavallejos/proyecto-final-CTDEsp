@@ -1,5 +1,4 @@
 import { createContext, useContext, ReactNode, useEffect, useState } from 'react';
-// import { getCookieToken } from 'utils/utils';
 export interface UserToken {
   id: number | undefined,
   name: string,
@@ -16,22 +15,31 @@ interface AuthContextProps {
   token: string | null;
   user: UserToken | null
   setUser: React.Dispatch<React.SetStateAction<UserToken | null>>;
+  setuserState: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const AuthContext = createContext<AuthContextProps>({ token: null, user: null, setUser: () => {}, });
+const AuthContext = createContext<AuthContextProps>({ token: null, user: null, setUser: () => { }, setuserState: () => { }, });
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<UserToken | null>(null);
+  const [userState, setuserState] = useState<string>("")
+
 
   useEffect(() => {
+    if (userState == "logout") {
+      setUser(null)
+      return
+    }
     // Obtener el token de la cookie al cargar la página
     const initialToken = document.cookie;
     const targetCookie = document.cookie.split('; ').find(cookie => cookie.startsWith('access-confirmacion='));
+
     if (targetCookie) {
       const tokenValue = targetCookie.split('=')[1];
       try {
         const parsedToken = JSON.parse(tokenValue);
+        console.log('parsedToken', parsedToken)
         const { token, ...user } = parsedToken
         setToken(token);
         setUser((prevUser) => ({ ...prevUser, ...user }));
@@ -42,9 +50,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return setToken(initialToken)
     }
 
-  }, []);
+  }, [userState]);
 
-  return <AuthContext.Provider value={{ token, user, setUser }}>{children}</AuthContext.Provider>;
+
+
+  return <AuthContext.Provider value={{ token, user, setUser, setuserState }}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => useContext(AuthContext);

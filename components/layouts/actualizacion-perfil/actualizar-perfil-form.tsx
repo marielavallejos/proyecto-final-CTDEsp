@@ -13,28 +13,30 @@ import { postRegistro, postActualizacion, postActualizacionApi } from 'services/
 import { useForm } from 'react-hook-form';
 import { useAuth } from 'context/AuthContext';
 import { Spinner } from 'components/layouts/ui/spinner';
+import Cookies from "js-cookie";
 
 const ActualizarPerfilForm = () => {
-    const {user, setUser} = useAuth();
-    const [userForm, setUserForm] = useState(user?{
+    const { token, user, setUser, setuserState } = useAuth();
+    const [userForm, setUserForm] = useState(user ? {
         name: user.name,
         lastname: user.lastname,
         email: user.email,
         profileUrl: user.profileUrl,
         password: "",
         userType: {
-          id: 1
+            id: 1
         }
-      }: {
+    } : {
         name: "user",
         lastname: "user",
         email: "user",
         profileUrl: "user",
         password: "user",
         userType: {
-          id: 1
+            id: 1
         }
-      })
+    })
+
     const router = useRouter();
     const [error, setError] = useState<string | null>(null);
     type DataForm = yup.InferType<typeof schema>
@@ -48,6 +50,8 @@ const ActualizarPerfilForm = () => {
     } = useForm<DataForm>({ resolver: yupResolver(schema), defaultValues: {} });
 
     const onSubmit = async (data: any) => {
+        Cookies.remove("access-confirmacion");
+        let response;
         const dataValues = getValues()
         const updatedData = {
             ...userForm,  // Datos previos en userForm
@@ -55,37 +59,61 @@ const ActualizarPerfilForm = () => {
             lastname: dataValues.lastname || userForm.lastname,
             email: dataValues.email || userForm.email,
             password: dataValues.password || "@dmin123",
+            profileUrl: dataValues.profileUrl || ""
             // Asegúrate de agregar otros campos según sea necesario
-          };
-        const response = await postActualizacionApi(updatedData);
-        if (response.status == 200) {
+        };
 
-            const updatedDataUser = {
-                ...userForm, 
-                id: user?.id,
-                userType: {
-                    id:1,
-                    name: "USER"
-                },
-                name: dataValues.name || userForm.name,
-                lastname: dataValues.lastname || userForm.lastname,
-                email: dataValues.email || userForm.email,
-       
+        const nuevaCookie = {
+            // ...updatedData,
+            token,
+            id: user?.id,
+        };
 
-              };
-              setUser(updatedDataUser)
-        }
-        try {
-            if (response) {
-                
-                setError(`Informacion actualizada con exito`);
-                setOpenSnackbar(true);
+        Cookies.set('access-confirmacion2', `{
+            name: "user",
+            lastname: "user",
+            email: "user",
+            profileUrl: "user",
+            password: "user",
+            userType: {
+                id: 1
             }
-        }
-        catch (error: any) {
-            setError(`${response}- - -${response}`);
-            setOpenSnackbar(true);
-        }
+        }`)
+        setuserState("actualizacion")
+
+        // response = await postActualizacionApi(updatedData);
+
+
+        // if (response.status == 200) {
+
+        //     const updatedDataUser = {
+        //         ...userForm,
+        //         id: user?.id,
+        //         userType: {
+        //             id: 1,
+        //             name: "USER"
+        //         },
+        //         name: dataValues.name || userForm.name,
+        //         lastname: dataValues.lastname || userForm.lastname,
+        //         email: dataValues.email || userForm.email,
+        //         profileUrl: dataValues.profileUrl || ""
+
+
+        //     };
+        //     setUser(updatedDataUser)
+        //     setuserState("actualizacion")
+        // }
+        // try {
+        //     if (response) {
+
+        //         setError(`Informacion actualizada con exito`);
+        //         setOpenSnackbar(true);
+        //     }
+        // }
+        // catch (error: any) {
+        //     setError(`${response}- - -${response}`);
+        //     setOpenSnackbar(true);
+        // }
     };
 
     const handleCloseSnackbar = () => {
@@ -104,17 +132,16 @@ const ActualizarPerfilForm = () => {
             alignItems="left"
             marginTop={5}
             sx={{ maxWidth: "800px" }}>
-                
+
             <Grid item padding={3} >
                 <Typography variant='h6' textAlign="left" fontWeight="bold">Configuración de la cuenta</Typography >
 
-                <Typography variant='body1' textAlign="center" fontWeight="bold" marginTop={3}>Foto de perfil</Typography >
                 <Avatar
-                alt="profile photo"
-                src="https://static.vecteezy.com/system/resources/previews/026/619/142/original/default-avatar-profile-icon-of-social-media-user-photo-image-vector.jpg"
-                sx={{ width: 100, height: 100, marginLeft:"auto", marginRight:"auto" }}
+                    alt="profile photo"
+                    src={user.profileUrl}
+                    sx={{ width: 100, height: 100, marginLeft: "auto", marginRight: "auto" }}
                 />
-                
+
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Grid
@@ -142,7 +169,7 @@ const ActualizarPerfilForm = () => {
                             Apellido*
                         </Typography>
                         <CustomTextField
-                        defaultValue={user?.lastname}
+                            defaultValue={user?.lastname}
                             name="lastname"
                             label=""
                             type="text"
@@ -157,7 +184,7 @@ const ActualizarPerfilForm = () => {
                             Email*
                         </Typography>
                         <CustomTextField
-                        defaultValue={user?.email}
+                            defaultValue={user?.email}
                             name="email"
                             label=""
                             type="email"
@@ -165,6 +192,19 @@ const ActualizarPerfilForm = () => {
                         />
                         <Typography variant='caption' color='red'>
                             <ErrorMessage errors={errors} name="email" />
+                        </Typography>
+                        <Typography variant='body1'>
+                            URL imagen
+                        </Typography>
+                        <CustomTextField
+                            defaultValue={user?.profileUrl}
+                            name="profileUrl"
+                            label=""
+                            type="profileUrl"
+                            control={control}
+                        />
+                        <Typography variant='caption' color='red'>
+                            <ErrorMessage errors={errors} name="profileUrl" />
                         </Typography>
 
                         <Typography variant='h6'>

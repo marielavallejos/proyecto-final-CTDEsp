@@ -26,7 +26,7 @@ const LoginForm = () => {
         getValues,
     } = useForm<DataForm>({ resolver: yupResolver(schema), defaultValues: {} });
 
-    const { setUser } = useAuth();
+    const { setUser,setuserState } = useAuth();
 
     const onSubmit = async (data: any) => {
         const dataValues = getValues()
@@ -34,7 +34,7 @@ const LoginForm = () => {
         try {
             if (!response.error) {
                 setUser((prevUser) => ({ ...prevUser, ...response.user }));
-
+                setuserState("login")
                 // Retrasar el push a la landing page por 2 segundos
                 setTimeout(() => {
                     router.push('/');

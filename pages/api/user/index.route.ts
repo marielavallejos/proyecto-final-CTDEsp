@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { postActualizacion } from 'services/sesion/user-sesion.service';
 import { parse, serialize } from 'cookie';
-
+import { cookies } from 'next/headers'
 type Data = {
   data: any;
 } | {
@@ -28,19 +28,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const usuarioId = cookieObj.id;
     const token = cookieObj.token;
     const result = await postActualizacion(req.body, token, usuarioId);
-    res.status(200).json({ data: result });
     const nuevaCookie = {
-        ...req.body,
-        token,
-        id: usuarioId,
-    }
-    const resultJSON = JSON.stringify(nuevaCookie);
-    // Serializa las cookies actualizadas para configurarlas en el encabezado
-    const nuevasCookiesSerializadas = serialize('access-confirmacion', resultJSON, {
-    path: '/',  // Ajusta según tu configuración
-    sameSite: 'lax',  // Ajusta según tu configuración
-  });
-  res.setHeader('Set-Cookie', nuevasCookiesSerializadas);
+      ...req.body,
+      token,
+      id: usuarioId,
+    };
+
+      // Configurar la nueva cookie
+    res.status(200).json({ data: result });
 
   } catch (err) {
 
