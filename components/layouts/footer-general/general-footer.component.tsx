@@ -29,7 +29,7 @@ const GeneralFooter = () => {
         </Grid>
 
             <Grid item xs={6}>
-                <Typography>Powered by DH</Typography>
+                <Typography>Powered by Give Accion</Typography>
             </Grid>
        </Box>
     );

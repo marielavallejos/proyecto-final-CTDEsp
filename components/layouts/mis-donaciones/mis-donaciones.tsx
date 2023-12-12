@@ -120,12 +120,18 @@ const MisDonaciones: React.FC<Props> = ({ listaDonaciones, listaProyectos }) => 
                 <Typography variant="subtitle1" align="left" noWrap style={{ ...coloredTextStyle, marginBottom: '15px' }}>
                   ${donacion.cantidad}
                 </Typography>
+                
               </Grid>
+
             </React.Fragment>
+            
           ))}
         </Grid>
         </>
       )}
+              <Grid marginTop={4}>
+              <Typography variant="h6" align="center">Ten en cuenta que las donaciones puden tardar en reflejasre, por favor refresca la página</Typography>
+              </Grid>
     </div>
   );
 };
