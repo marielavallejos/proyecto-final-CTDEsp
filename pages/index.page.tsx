@@ -40,7 +40,7 @@ const Index = () => {
   const [proyectos, setProyectos] = useState<ProyectoFinal[]>([])
   const [proyecosCargados, setProyecosCargados] = useState(false)
 
-  
+
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
@@ -51,11 +51,10 @@ const Index = () => {
     }
     fetchData()
   }, [])
+
   if (!proyecosCargados) {
     return (
-
       <Spinner />
-
     );
   }
 
