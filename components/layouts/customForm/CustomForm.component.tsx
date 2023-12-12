@@ -133,7 +133,7 @@ const CustomForm: FC<Props> = ({ activeStep }) => {
             montoSumatoriaDonaciones: 0,  
             multimedias: multimediasL,
             nombre: data.project.name,
-            usuariosId: user ? user.id : 18
+            usuariosId: user?.id 
         };
 
         const response = await postProyectoAPI(proyecto);
