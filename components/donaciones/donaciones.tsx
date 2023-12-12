@@ -28,9 +28,7 @@ const DonacionesForm = () => {
     const [pago, setPago] = useState('11');
     const [proyecto, setProyecto] = useState<ProyectoFinal>()
     
-    const handleClick = () => {
-        router.push("/confirmacion-donacion");
-    }
+
     const {
         control,
         formState: { errors },
@@ -59,11 +57,9 @@ const DonacionesForm = () => {
 
         try {
             if (!response.error) {
-                setError(`Su donacion se realizo con exito`);
-                setOpenSnackbar(true);
                 setTimeout(() => {
-                    router.push("/mis-donaciones-proyectos");
-                }, 2000);
+                    router.push("/confirmacion-donacion");
+                }, 3000);
             } else {
 
                 setError(`${response.error}- - -${response.message}`);
@@ -167,20 +163,10 @@ const DonacionesForm = () => {
                             <MenuItem value={13}>Paypal</MenuItem>
                             <MenuItem value={12}>Mercado Pago</MenuItem>
                         </Select>
-                        <Button type='submit' size='large' variant="contained" color="primary" sx={{ fontWeight: "bold" }} onClick={handleClick} >Aceptar</Button>
+                        <Button type='submit' size='large' variant="contained" color="primary" sx={{ fontWeight: "bold" }}>Aceptar</Button>
                     </Grid>
                 </form>
             </Grid>
-        </Grid>
-
-        <Grid container>
-            <Snackbar
-                open={openSnackbar}
-                autoHideDuration={6000}
-                onClose={handleCloseSnackbar}
-                message={error || ""} //TODO  modificar modal para notificaciones
-            />
-
         </Grid>
 
     </Grid>)
