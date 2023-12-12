@@ -61,7 +61,7 @@ const DonacionesForm = () => {
                 setOpenSnackbar(true);
                 setTimeout(() => {
                     router.push("/mis-donaciones-proyectos");
-                }, 4000);
+                }, 2000);
             } else {
 
                 setError(`${response.error}- - -${response.message}`);

@@ -38,7 +38,7 @@ const LoginForm = () => {
                 // Retrasar el push a la landing page por 2 segundos
                 setTimeout(() => {
                     router.push('/');
-                }, 4000);
+                }, 2000);
             } else {
 
                 setError(`${response.error}- - -${response.message}`);

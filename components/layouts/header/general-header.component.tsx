@@ -413,7 +413,7 @@ const Header: FC<Props> = ({ variant }: Props) => {
                     alt="Perfil"
                   />
                 </NextLink>
-                <NextLink href="/login" passHref>
+                <NextLink href="/actualizacion-perfil" passHref>
                   <MUILink
                     variant="body2"
                     sx={{
@@ -437,7 +437,6 @@ const Header: FC<Props> = ({ variant }: Props) => {
                     }}
                     onClick={() => {
                       Cookies.remove("access-confirmacion");
-                      Cookies.remove("_vercel_jwt")
                       router.push("/");
                     }}
                   >
