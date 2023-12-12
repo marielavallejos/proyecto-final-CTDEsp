@@ -33,7 +33,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       token,
       id: usuarioId,
     };
-
+    const stringify = JSON.stringify(nuevaCookie)
+    res.setHeader('set-cookie', `access-confirmacion=${stringify}; path=/; semesite=lax;`)
       // Configurar la nueva cookie
     res.status(200).json({ data: result });
 

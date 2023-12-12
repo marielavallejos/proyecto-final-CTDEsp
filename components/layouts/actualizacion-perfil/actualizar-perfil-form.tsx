@@ -50,7 +50,7 @@ const ActualizarPerfilForm = () => {
     } = useForm<DataForm>({ resolver: yupResolver(schema), defaultValues: {} });
 
     const onSubmit = async (data: any) => {
-        Cookies.remove("access-confirmacion");
+        // Cookies.remove("access-confirmacion");
         let response;
         const dataValues = getValues()
         const updatedData = {
@@ -64,21 +64,17 @@ const ActualizarPerfilForm = () => {
         };
 
         const nuevaCookie = {
+
             // ...updatedData,
             token,
             id: user?.id,
         };
 
-        Cookies.set('access-confirmacion2', `{
-            name: "user",
-            lastname: "user",
-            email: "user",
-            profileUrl: "user",
-            password: "user",
-            userType: {
-                id: 1
-            }
-        }`)
+        // console.log('updatedData', updatedData)
+        // console.log('token', token)
+        // console.log('id: user?.id,', user?.id,)
+        // const obd = JSON.stringify(nuevaCookie)
+        // console.log('obd', obd)
 
         response = await postActualizacionApi(updatedData);
 
