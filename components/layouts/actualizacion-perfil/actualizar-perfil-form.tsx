@@ -79,41 +79,40 @@ const ActualizarPerfilForm = () => {
                 id: 1
             }
         }`)
-        setuserState("actualizacion")
 
-        // response = await postActualizacionApi(updatedData);
-
-
-        // if (response.status == 200) {
-
-        //     const updatedDataUser = {
-        //         ...userForm,
-        //         id: user?.id,
-        //         userType: {
-        //             id: 1,
-        //             name: "USER"
-        //         },
-        //         name: dataValues.name || userForm.name,
-        //         lastname: dataValues.lastname || userForm.lastname,
-        //         email: dataValues.email || userForm.email,
-        //         profileUrl: dataValues.profileUrl || ""
+        response = await postActualizacionApi(updatedData);
 
 
-        //     };
-        //     setUser(updatedDataUser)
-        //     setuserState("actualizacion")
-        // }
-        // try {
-        //     if (response) {
+        if (response.status == 200) {
 
-        //         setError(`Informacion actualizada con exito`);
-        //         setOpenSnackbar(true);
-        //     }
-        // }
-        // catch (error: any) {
-        //     setError(`${response}- - -${response}`);
-        //     setOpenSnackbar(true);
-        // }
+            const updatedDataUser = {
+                ...userForm,
+                id: user?.id,
+                userType: {
+                    id: 1,
+                    name: "USER"
+                },
+                name: dataValues.name || userForm.name,
+                lastname: dataValues.lastname || userForm.lastname,
+                email: dataValues.email || userForm.email,
+                profileUrl: dataValues.profileUrl || ""
+
+
+            };
+            setUser(updatedDataUser)
+            setuserState("actualizacion")
+        }
+        try {
+            if (response) {
+
+                setError(`Informacion actualizada con exito`);
+                setOpenSnackbar(true);
+            }
+        }
+        catch (error: any) {
+            setError(`${response}- - -${response}`);
+            setOpenSnackbar(true);
+        }
     };
 
     const handleCloseSnackbar = () => {
