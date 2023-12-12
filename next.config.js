@@ -1,10 +1,6 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-    trailingSlash: true,
-    images:{
-        unoptimized: true
-        },
     transpilePackages: ['@mui/x-charts'],
     reactStrictMode: true,
     swcMinify: true,
