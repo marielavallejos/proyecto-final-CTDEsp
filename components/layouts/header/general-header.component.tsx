@@ -285,7 +285,6 @@ const Header: FC<Props> = ({ variant }: Props) => {
                           }}
                           onClick={() => {
                             Cookies.remove("access-confirmacion");
-                            Cookies.remove("_vercel_jwt")
                             router.push("/");
                           }}
                         >

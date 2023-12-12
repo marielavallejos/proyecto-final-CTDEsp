@@ -27,8 +27,10 @@ const DonacionesForm = () => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [pago, setPago] = useState('11');
     const [proyecto, setProyecto] = useState<ProyectoFinal>()
-
-
+    
+    const handleClick = () => {
+        router.push("/confirmacion-donacion");
+    }
     const {
         control,
         formState: { errors },
@@ -165,7 +167,7 @@ const DonacionesForm = () => {
                             <MenuItem value={13}>Paypal</MenuItem>
                             <MenuItem value={12}>Mercado Pago</MenuItem>
                         </Select>
-                        <Button type='submit' size='large' variant="contained" color="primary" sx={{ fontWeight: "bold" }} >Aceptar</Button>
+                        <Button type='submit' size='large' variant="contained" color="primary" sx={{ fontWeight: "bold" }} onClick={handleClick} >Aceptar</Button>
                     </Grid>
                 </form>
             </Grid>

@@ -44,7 +44,7 @@ export const getProyectoById = async (proyectoId: number): Promise<any> => {
 };
 export const getProyectosUsuario = async (usuarioId: number, offset?: number, limit?: number, token?: string | null) => {
   const params = new URLSearchParams();
-
+console.log("id", usuarioId)
   params.set("usuariosId", `${usuarioId}`);
 
   if (offset) params.set("pageNumber", `${offset}`);
