@@ -77,7 +77,7 @@ export const postRegistroApi = async (data: IUserRegister): Promise<any> => {
   const transformData =
   {
     ...data,
-    profileUrl: "https://static.vecteezy.com/system/resources/previews/026/619/142/original/default-avatar-profile-icon-of-social-media-user-photo-image-vector.jpg",
+    profileUrl: "https://s3-pi2-gp2-wowfunding.s3.amazonaws.com/PerfilURL/Captura+de+pantalla+2023-12-12+190408.png",
     userType: {
       id: 1
     }

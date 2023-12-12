@@ -11,9 +11,11 @@ import { useRouter } from 'next/router'
 import { useState } from 'react';
 import { postRegistro, postRegistroApi } from 'services/sesion/user-sesion.service';
 import { useForm } from 'react-hook-form';
+import { useAuth } from 'context/AuthContext';
 
 
 const RegistroForm = () => {
+    const {setuserState} = useAuth()
     const router = useRouter();
     const [error, setError] = useState<string | null>(null);
     type DataForm = yup.InferType<typeof schema>
@@ -32,7 +34,7 @@ const RegistroForm = () => {
         const response = await postRegistro(dataValues);
         try {
             if (!response.error) {
-               
+                setuserState("registro")
                 router.push('/registro-exitoso');
             }
             else {

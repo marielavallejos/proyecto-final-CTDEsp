@@ -96,7 +96,7 @@ const CustomForm: FC<Props> = ({ activeStep }) => {
                 descripcion: data.project.description_large
             },
             {
-                tipo: 3,
+                tipo: 4,
                 descripcion: data.project.conclusion
             }
         ];
@@ -119,7 +119,7 @@ const CustomForm: FC<Props> = ({ activeStep }) => {
                 url: data.project.image3
             },
             {
-                tipo: 3,
+                tipo: 4,
                 url: data.project.image4
             }
         ];

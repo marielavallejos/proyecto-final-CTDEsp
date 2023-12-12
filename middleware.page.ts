@@ -15,7 +15,10 @@ export function middleware(req: NextRequest, res: NextResponse) {
   ];
 
   if (!cookieUser && redirectUrls.some(redirectUrl => url.includes(redirectUrl))) {
-    return NextResponse.redirect(`${URL_DOMAIN}`);
+    const response = NextResponse.redirect(`${URL_DOMAIN}`);
+    response.cookies.set("key", url);
+    return response;
+    // return NextResponse.redirect(`${URL_DOMAIN}`).cookies("mycookie", "oken");
   }
 
   return NextResponse.next();

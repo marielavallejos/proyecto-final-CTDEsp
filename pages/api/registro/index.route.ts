@@ -23,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     try {
         const result = await postRegistroApi(req.body);
         const resultJSON = JSON.stringify(result);
-        res.setHeader('Set-Cookie', `access-confirmacion=${resultJSON}; Path=; HttpOnly; SameSite=Lax`);
+        res.setHeader('set-cookie', `access-confirmacion=${resultJSON}; path=/; semesite=lax;`)
         res.status(200).json({ data: result });
     } catch (err) {
         res.status(500).json({ error: "en el error 500  ", message: "error 500" });
