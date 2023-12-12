@@ -8,6 +8,7 @@ export const schema = yup.object({
     name: yup.string(),
 
     lastname: yup.string(),
+    password: yup.string().required("este campo es obligatorio para confirmar cambios")
 
 
 });

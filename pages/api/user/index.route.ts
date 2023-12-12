@@ -36,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     }
     const resultJSON = JSON.stringify(nuevaCookie);
     // Serializa las cookies actualizadas para configurarlas en el encabezado
-    const nuevasCookiesSerializadas = serialize('access-confirmacion', nuevaCookie, {
+    const nuevasCookiesSerializadas = serialize('access-confirmacion', resultJSON, {
     path: '/',  // Ajusta según tu configuración
     sameSite: 'lax',  // Ajusta según tu configuración
   });

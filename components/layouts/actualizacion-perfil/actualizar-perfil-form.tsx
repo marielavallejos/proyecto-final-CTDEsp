@@ -21,6 +21,7 @@ const ActualizarPerfilForm = () => {
         lastname: user.lastname,
         email: user.email,
         profileUrl: user.profileUrl,
+        password: "",
         userType: {
           id: 1
         }
@@ -29,6 +30,7 @@ const ActualizarPerfilForm = () => {
         lastname: "user",
         email: "user",
         profileUrl: "user",
+        password: "user",
         userType: {
           id: 1
         }
@@ -52,6 +54,7 @@ const ActualizarPerfilForm = () => {
             name: dataValues.name || userForm.name,
             lastname: dataValues.lastname || userForm.lastname,
             email: dataValues.email || userForm.email,
+            password: dataValues.password || "@dmin123",
             // Asegúrate de agregar otros campos según sea necesario
           };
         const response = await postActualizacionApi(updatedData);
@@ -67,25 +70,22 @@ const ActualizarPerfilForm = () => {
                 name: dataValues.name || userForm.name,
                 lastname: dataValues.lastname || userForm.lastname,
                 email: dataValues.email || userForm.email,
+       
 
               };
               setUser(updatedDataUser)
         }
-        // try {
-        //     if (!response.error) {
+        try {
+            if (response) {
                 
-        //         router.push('/');
-        //     }
-        //     else {
-                
-        //         setError(`${response.error}- - -${response.message}`);
-        //         setOpenSnackbar(true);
-        //     }
-        // }
-        // catch (error: any) {
-        //     setError(`${response.error}- - -${response.message}`);
-        //     setOpenSnackbar(true);
-        // }
+                setError(`Informacion actualizada con exito`);
+                setOpenSnackbar(true);
+            }
+        }
+        catch (error: any) {
+            setError(`${response}- - -${response}`);
+            setOpenSnackbar(true);
+        }
     };
 
     const handleCloseSnackbar = () => {
@@ -165,6 +165,19 @@ const ActualizarPerfilForm = () => {
                         />
                         <Typography variant='caption' color='red'>
                             <ErrorMessage errors={errors} name="email" />
+                        </Typography>
+
+                        <Typography variant='h6'>
+                            Para confirmar cambios ingrese su contraseña*
+                        </Typography>
+                        <CustomTextField
+                            name="password"
+                            label=""
+                            type="password"
+                            control={control}
+                        />
+                        <Typography variant='caption' color='red'>
+                            <ErrorMessage errors={errors} name="password" />
                         </Typography>
 
 

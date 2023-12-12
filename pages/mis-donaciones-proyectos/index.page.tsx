@@ -10,14 +10,20 @@ import { getDonacionesUsuario } from 'services/donaciones/donaciones.service';
 import { getProyectos, getProyectosUsuario } from 'services/proyectos/proyectos.service';
 import Head from 'next/head';
 import CardsRecomendaciones from 'components/layouts/cards-recomendaciones/cards-recomendaciones';
+import { Spinner } from 'components/layouts/ui/spinner';
 
 interface Props {
   proyectos: ProyectoFinal[];
   proyectosUsuario: ProyectoFinal[];
   donacionesUsuario: Donaciones[];
+  infoCargada:Boolean
 }
 
-const MisDonacionesProyectos: NextPage<Props> = ({ donacionesUsuario, proyectos, proyectosUsuario }: Props) => {
+const MisDonacionesProyectos: NextPage<Props> = ({ donacionesUsuario, proyectos, proyectosUsuario, infoCargada  }: Props) => {
+
+  if (!donacionesUsuario && !proyectos && !proyectosUsuario) {
+    return <Spinner />
+  }
 
   return (
     <>
@@ -40,19 +46,20 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     const cookies = req.cookies
     const cookieInfo = cookies['access-confirmacion']
     const cookieObj = JSON.parse(cookieInfo as any);
-      const usuarioId = cookieObj.id;
-      const token = cookieObj.token;
+    const usuarioId = cookieObj.id;
+    const token = cookieObj.token;
 
     const proyectos = await getProyectos(0, 10);
     res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate');
     const proyectosUsuario = await getProyectosUsuario(usuarioId, 0, 10);
     const donacionesUsuario = await getDonacionesUsuario(usuarioId, token);
-    
+
     return {
       props: {
         proyectos: proyectos,
         proyectosUsuario: proyectosUsuario,
         donacionesUsuario: donacionesUsuario,
+        infoCargada: true
       },
     };
   } catch (error) {
@@ -62,6 +69,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
         proyectos: [],
         proyectosUsuario: [],
         donacionesUsuario: [],
+        infoCargada:false
       },
     };
   }
