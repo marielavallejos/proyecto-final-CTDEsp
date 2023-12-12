@@ -16,11 +16,12 @@ interface Props {
   proyectos: ProyectoFinal[];
   proyectosUsuario: ProyectoFinal[];
   donacionesUsuario: Donaciones[];
+  infoCargada:Boolean
 }
 
-const MisDonacionesProyectos: NextPage<Props> = ({ donacionesUsuario, proyectos, proyectosUsuario }: Props) => {
-  
-  if (donacionesUsuario && proyectos && proyectosUsuario) {
+const MisDonacionesProyectos: NextPage<Props> = ({ donacionesUsuario, proyectos, proyectosUsuario, infoCargada  }: Props) => {
+
+  if (!donacionesUsuario && !proyectos && !proyectosUsuario) {
     return <Spinner />
   }
 
@@ -58,6 +59,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
         proyectos: proyectos,
         proyectosUsuario: proyectosUsuario,
         donacionesUsuario: donacionesUsuario,
+        infoCargada: true
       },
     };
   } catch (error) {
@@ -67,6 +69,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
         proyectos: [],
         proyectosUsuario: [],
         donacionesUsuario: [],
+        infoCargada:false
       },
     };
   }
