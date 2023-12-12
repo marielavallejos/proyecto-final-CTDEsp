@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+    trailingSlash: true,
+    images:{
+        unoptimized: true
+        },
     transpilePackages: ['@mui/x-charts'],
     reactStrictMode: true,
     swcMinify: true,
@@ -20,8 +24,10 @@ const nextConfig = {
             }
         ],
     },
+
     pageExtensions: ['page.tsx', 'page.ts', 'route.tsx', 'route.ts'],
+
 
 }
 
-module.exports = nextConfig
+module.exports = nextConfig 

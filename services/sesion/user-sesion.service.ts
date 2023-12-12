@@ -25,22 +25,46 @@ export const postLoginAPI = async (data: ILogin): Promise<any> => {
       "Content-Type": "application/json",
     },
     method: "POST",
-    body: data
+    body: data,
   });
 
   return await response;
 };
 
+export interface Actualizacion {
+  name?: string,
+  profileUrl: string,
+  lastname?: string,
+  email?: string
+  userType?: {
+    id: number
+  }
+}
 
-export const postActualizacion = async (data: IUserRegister) => {
-  const response = await fetchApi(`users`, {
+export const postActualizacionApi = async (data: Actualizacion) => {
+  const response = await fetch(`/api/user`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
 
     },
-    method: "Patch",
-    body: data
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+  return await response;
+}
+
+export const postActualizacion = async (data: Actualizacion, token: string, id: number) => {
+  const response = await fetchApi(`auth/updateUser/${id}`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+
+    },
+    method: "PUT",
+    body: data,
+    
   });
   return await response;
 }

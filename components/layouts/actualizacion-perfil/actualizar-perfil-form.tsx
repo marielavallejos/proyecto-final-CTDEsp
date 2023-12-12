@@ -9,11 +9,30 @@ import { schema } from './schema';
 import { CustomTextField } from '../ui/custom-text-field-props';
 import { useRouter } from 'next/router'
 import { useState } from 'react';
-import { postRegistro, postActualizacion } from 'services/sesion/user-sesion.service';
+import { postRegistro, postActualizacion, postActualizacionApi } from 'services/sesion/user-sesion.service';
 import { useForm } from 'react-hook-form';
-
+import { useAuth } from 'context/AuthContext';
+import { Spinner } from 'components/layouts/ui/spinner';
 
 const ActualizarPerfilForm = () => {
+    const {user, setUser} = useAuth();
+    const [userForm, setUserForm] = useState(user?{
+        name: user.name,
+        lastname: user.lastname,
+        email: user.email,
+        profileUrl: user.profileUrl,
+        userType: {
+          id: 1
+        }
+      }: {
+        name: "user",
+        lastname: "user",
+        email: "user",
+        profileUrl: "user",
+        userType: {
+          id: 1
+        }
+      })
     const router = useRouter();
     const [error, setError] = useState<string | null>(null);
     type DataForm = yup.InferType<typeof schema>
@@ -28,27 +47,54 @@ const ActualizarPerfilForm = () => {
 
     const onSubmit = async (data: any) => {
         const dataValues = getValues()
-        const response = await postActualizacion(dataValues);
-        try {
-            if (!response.error) {
-                
-                router.push('/registro-exitoso');
-            }
-            else {
-                
-                setError(`${response.error}- - -${response.message}`);
-                setOpenSnackbar(true);
-            }
+        const updatedData = {
+            ...userForm,  // Datos previos en userForm
+            name: dataValues.name || userForm.name,
+            lastname: dataValues.lastname || userForm.lastname,
+            email: dataValues.email || userForm.email,
+            // Asegúrate de agregar otros campos según sea necesario
+          };
+        const response = await postActualizacionApi(updatedData);
+        if (response.status == 200) {
+
+            const updatedDataUser = {
+                ...userForm, 
+                id: user?.id,
+                userType: {
+                    id:1,
+                    name: "USER"
+                },
+                name: dataValues.name || userForm.name,
+                lastname: dataValues.lastname || userForm.lastname,
+                email: dataValues.email || userForm.email,
+
+              };
+              setUser(updatedDataUser)
         }
-        catch (error: any) {
-            setError(`${response.error}- - -${response.message}`);
-            setOpenSnackbar(true);
-        }
+        // try {
+        //     if (!response.error) {
+                
+        //         router.push('/');
+        //     }
+        //     else {
+                
+        //         setError(`${response.error}- - -${response.message}`);
+        //         setOpenSnackbar(true);
+        //     }
+        // }
+        // catch (error: any) {
+        //     setError(`${response.error}- - -${response.message}`);
+        //     setOpenSnackbar(true);
+        // }
     };
 
     const handleCloseSnackbar = () => {
         setOpenSnackbar(false);
     };
+
+    if (!user) {
+        return <Spinner />
+    }
 
     return (
         <Grid
@@ -82,8 +128,9 @@ const ActualizarPerfilForm = () => {
                             Nombre*
                         </Typography>
                         <CustomTextField
+                            defaultValue={user?.name}
                             name="name"
-                            label="Name"
+                            label=""
                             type="text"
                             control={control}
                         />
@@ -95,8 +142,9 @@ const ActualizarPerfilForm = () => {
                             Apellido*
                         </Typography>
                         <CustomTextField
+                        defaultValue={user?.lastname}
                             name="lastname"
-                            label="lastname"
+                            label=""
                             type="text"
                             control={control}
                         />
@@ -104,39 +152,14 @@ const ActualizarPerfilForm = () => {
                             <ErrorMessage errors={errors} name="lastname" />
                         </Typography>
 
-                        <Typography variant='body1'>
-                            Pais*
-                        </Typography>
-                        <CustomTextField
-                            name="country"
-                            label="Pais"
-                            type="text"
-                            control={control}
-                        />
-                        <Typography variant='caption' color='red'>
-                            <ErrorMessage errors={errors} name="country" />
-                        </Typography>
-
-                        <Typography variant='body1'>
-                            Número de celular*
-                        </Typography>
-                        <CustomTextField
-                            name="phone"
-                            label="Telefono"
-                            type="text"
-                            control={control}
-                        />
-                        <Typography variant='caption' color='red'>
-                            <ErrorMessage errors={errors} name="phone" />
-                        </Typography>
-
 
                         <Typography variant='body1'>
                             Email*
                         </Typography>
                         <CustomTextField
+                        defaultValue={user?.email}
                             name="email"
-                            label="Email"
+                            label=""
                             type="email"
                             control={control}
                         />
